@@ -1,6 +1,24 @@
+/*
+ * Lotus
+ * Copyright (c) 2024 IThundxr
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package dev.ithundxr.lotus.gradle
 
-import dev.ithundxr.numismaticsgradle.asm.NumismaticsGradleASM
+import dev.ithundxr.lotus.gradle.asm.LotusGradleASM
 import groovy.json.JsonOutput
 import groovy.json.JsonSlurper
 import org.gradle.api.Plugin
@@ -41,7 +59,7 @@ class LotusGradlePlugin : Plugin<Project> {
                         if (name.endsWith(".json") || name.endsWith(".mcmeta")) {
                             data = (JsonOutput.toJson(JsonSlurper().parse(data)).toByteArray())
                         } else if (name.endsWith(".class")) {
-                            data = NumismaticsGradleASM().transformClass(project, data)
+                            data = LotusGradleASM().transformClass(project, data)
                         }
 
                         out.putNextEntry(JarEntry(name))

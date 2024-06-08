@@ -16,29 +16,8 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
-/*
- * Lotus
- * Copyright (c) 2024 IThundxr
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
- */
-
 plugins {
     kotlin("jvm") version "1.9.+"
-    java
     `kotlin-dsl`
     `java-gradle-plugin`
     `maven-publish`
@@ -62,21 +41,6 @@ dependencies {
     implementation("org.ow2.asm:asm:${"asm_version"()}")
     implementation("org.ow2.asm:asm-tree:${"asm_version"()}")
     implementation("org.ow2.asm:asm-util:${"asm_version"()}")
-}
-
-tasks.withType<KotlinCompile>().configureEach {
-    compilerOptions.freeCompilerArgs.add("-Xjvm-default=all")
-}
-
-tasks.withType<JavaCompile>().configureEach {
-    options.encoding = "UTF-8"
-    options.release.set(17)
-}
-
-tasks.jar {}
-
-java {
-    withSourcesJar()
 }
 
 gradlePlugin {
