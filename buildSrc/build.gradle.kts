@@ -68,10 +68,14 @@ tasks.withType<KotlinCompile>().configureEach {
     compilerOptions.freeCompilerArgs.add("-Xjvm-default=all")
 }
 
+tasks.withType<JavaCompile>().configureEach {
+    options.encoding = "UTF-8"
+    options.release.set(17)
+}
+
+tasks.jar {}
+
 java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
-    }
     withSourcesJar()
 }
 
