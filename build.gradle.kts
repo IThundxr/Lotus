@@ -33,8 +33,8 @@ subprojects {
     apply(plugin = "dev.architectury.loom")
 
     repositories {
-        maven { url = uri("https://maven.parchmentmc.org") } // Parchment mappings
-        maven { url = uri("https://maven.quiltmc.org/repository/release") } // Quilt Mappings
+        maven("https://maven.parchmentmc.org") // Parchment mappings
+        maven("https://maven.quiltmc.org/repository/release") // Quilt Mappings
     }
 
     dependencies {
