@@ -1,0 +1,30 @@
+modLoader = "javafml"
+loaderVersion = "[${forge_version},)"
+license  = "MIT"
+issueTrackerURL = "https://github.com/ithundxr/Lotus/issues"
+
+[[mods]]
+modId="lotus"
+version="${version}"
+displayName="Lotus"
+authors="IThundxr"
+displayURL="https://ithundxr.dev"
+logoFile= "icon.png"
+
+description='''
+A Lib with code i use
+'''
+
+[[dependencies.lotus]]
+   modId =   "forge"
+   mandatory   =  true
+   versionRange = "[${forge_version},)"
+   ordering =   "NONE"
+   side  = "BOTH"
+
+[[dependencies.lotus]]
+   modId =   "minecraft"
+   mandatory   =  true
+   versionRange   =  "${minecraft_version}"
+   ordering =   "NONE"
+   side  = "BOTH"
