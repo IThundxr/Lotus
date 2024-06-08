@@ -21,4 +21,4 @@ jobs:
           cache: gradle
 
       - name: Build & Publish
-        run: ./gradlew :buildSrc:publish
+        run: cd buildSrc && ../gradlew build publish

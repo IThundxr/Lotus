@@ -19,4 +19,4 @@ jobs:
       - name: Build & Publish to Maven
         env:
           MAVEN_TOKEN: ${{ secrets.MAVEN_TOKEN }}
-        run: ./gradlew :buildSrc:build :buildSrc:publish
+        run: cd buildSrc && ../gradlew build publish

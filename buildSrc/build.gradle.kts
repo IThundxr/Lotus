@@ -16,8 +16,29 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
+/*
+ * Lotus
+ * Copyright (c) 2024 IThundxr
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
+
 plugins {
-    kotlin("jvm") version "1.9.23"
+    kotlin("jvm") version "1.9.+"
+    java
     `kotlin-dsl`
     `java-gradle-plugin`
     `maven-publish`
@@ -29,6 +50,7 @@ val buildNumber = System.getenv("GITHUB_RUN_NUMBER")?.toInt()
 val build = buildNumber?.let { "-build.${it}" } ?: "-local"
 
 version = project.properties["version"]!!.toString() + if (isRelease) "" else build
+base.archivesName.set("LotusGradle")
 group = "dev.ithundxr.lotus"
 
 repositories {
@@ -42,7 +64,14 @@ dependencies {
     implementation("org.ow2.asm:asm-util:${"asm_version"()}")
 }
 
+tasks.withType<KotlinCompile>().configureEach {
+    compilerOptions.freeCompilerArgs.add("-Xjvm-default=all")
+}
+
 java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
     withSourcesJar()
 }
 
