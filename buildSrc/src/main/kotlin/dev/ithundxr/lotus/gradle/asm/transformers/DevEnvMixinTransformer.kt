@@ -18,7 +18,6 @@
 
 package dev.ithundxr.lotus.gradle.asm.transformers;
 
-import dev.ithundxr.lotus.gradle.asm.LotusGradleASM
 import dev.ithundxr.lotus.gradle.asm.internal.IClassTransformer
 import dev.ithundxr.lotus.gradle.asm.internal.SubprojectType
 import org.objectweb.asm.tree.AnnotationNode
@@ -26,17 +25,6 @@ import org.objectweb.asm.tree.ClassNode
 import java.util.*
 
 class DevEnvMixinTransformer : IClassTransformer {
-    companion object {
-        private var addedTransformer = false
-
-        fun init() {
-            if (!addedTransformer) {
-                LotusGradleASM.instance.addTransformer(DevEnvMixinTransformer::class)
-                addedTransformer = true
-            }
-        }
-    }
-
     override fun transform(project: SubprojectType, node: ClassNode) {
         node.methods.removeIf { methodNode -> removeIfDevMixin(node.name, methodNode.visibleAnnotations) }
     }

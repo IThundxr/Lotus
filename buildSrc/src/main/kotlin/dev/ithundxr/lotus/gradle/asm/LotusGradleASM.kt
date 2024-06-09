@@ -38,7 +38,7 @@ class LotusGradleASM {
         val instance = LotusGradleASM()
     }
 
-    private val storedClasses = mutableListOf<KClass<*>>()
+    private val storedClasses = mutableSetOf<KClass<*>>()
 
     fun transformClass(project: Project, bytes: ByteArray): ByteArray {
         // Get project type
