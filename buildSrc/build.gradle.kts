@@ -52,10 +52,6 @@ gradlePlugin {
     }
 }
 
-publishing.publications.forEach { a ->
-    println(a.name)
-}
-
 publishing {
     repositories {
         val mavenToken = System.getenv("MAVEN_TOKEN")

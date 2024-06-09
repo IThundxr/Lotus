@@ -35,7 +35,7 @@ class LotusGradleASM {
         ClassReader(bytes).accept(node, 0)
 
         // Transformers
-        DevEnvMixinTransformer().transform(projectType, node)
+        DevEnvMixinTransformer().transform(node)
 
         // Verify the bytecode is valid
         val byteArray = ClassWriter(0).also { node.accept(it) }.toByteArray()
