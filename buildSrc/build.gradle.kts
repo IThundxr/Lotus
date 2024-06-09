@@ -48,17 +48,12 @@ gradlePlugin {
         create("lotusPlugin") {
             id = "dev.ithundxr.lotus.gradle"
             implementationClass = "dev.ithundxr.lotus.gradle.LotusGradlePlugin"
+            isAutomatedPublishing = false
         }
     }
 }
 
 publishing {
-    publications.withType<MavenPublication> {
-        if (name == "dev.ithundxr.lotus.gradle.gradle.plugin") {
-            publications.remove(this)
-        }
-    }
-
     repositories {
         val mavenToken = System.getenv("MAVEN_TOKEN")
         if (mavenToken != null && mavenToken.isNotEmpty() && isRelease) {
