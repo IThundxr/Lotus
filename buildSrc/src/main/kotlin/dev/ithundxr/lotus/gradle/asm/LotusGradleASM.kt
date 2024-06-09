@@ -19,14 +19,27 @@
 package dev.ithundxr.lotus.gradle.asm
 
 import dev.ithundxr.lotus.gradle.asm.internal.SubprojectType
-import dev.ithundxr.lotus.gradle.asm.transformers.DevEnvMixinTransformer
+import dev.ithundxr.lotus.gradle.asm.internal.IClassTransformer
 import org.gradle.api.Project
 import org.objectweb.asm.ClassReader
 import org.objectweb.asm.ClassWriter
 import org.objectweb.asm.tree.ClassNode
 import org.objectweb.asm.util.CheckClassAdapter
+import kotlin.reflect.KClass
+import kotlin.reflect.full.createInstance
+import kotlin.reflect.full.declaredMemberFunctions
+import kotlin.reflect.full.isSubclassOf
 
+/**
+ * Do not create your own instance, use the static one provided to you.
+ */
 class LotusGradleASM {
+    companion object {
+        val instance = LotusGradleASM()
+    }
+
+    private val storedClasses = mutableListOf<KClass<*>>()
+
     fun transformClass(project: Project, bytes: ByteArray): ByteArray {
         // Get project type
         val projectType = SubprojectType.getProjectType(project)
@@ -34,12 +47,24 @@ class LotusGradleASM {
         val node = ClassNode()
         ClassReader(bytes).accept(node, 0)
 
-        // Transformers
-        DevEnvMixinTransformer().transform(node)
+        for (kClass in storedClasses) {
+            val instance = kClass.createInstance() as IClassTransformer
+            val method = kClass.declaredMemberFunctions.find { it.name == "transform" }
+                ?: throw IllegalArgumentException("Method transform(SubprojectType, ClassNode) not found in class $kClass")
+
+            method.call(instance, projectType, node)
+        }
 
         // Verify the bytecode is valid
         val byteArray = ClassWriter(0).also { node.accept(it) }.toByteArray()
         ClassReader(byteArray).accept(CheckClassAdapter(null), 0)
         return byteArray
+    }
+
+    fun addTransformer(kClass: KClass<*>) {
+        if (!kClass.isSubclassOf(IClassTransformer::class))
+            throw IllegalArgumentException("Class ${kClass.simpleName} does not implement IClassTransformer")
+
+        storedClasses.add(kClass)
     }
 }

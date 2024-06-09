@@ -18,14 +18,15 @@
 
 package dev.ithundxr.lotus.gradle.asm.transformers;
 
+import dev.ithundxr.lotus.gradle.asm.internal.IClassTransformer
+import dev.ithundxr.lotus.gradle.asm.internal.SubprojectType
 import org.objectweb.asm.tree.AnnotationNode
 import org.objectweb.asm.tree.ClassNode
-import org.objectweb.asm.tree.MethodNode
 import java.util.*
 
-class DevEnvMixinTransformer {
-    fun transform(node: ClassNode) {
-        node.methods.removeIf { methodNode: MethodNode -> removeIfDevMixin(node.name, methodNode.visibleAnnotations) }
+class DevEnvMixinTransformer : IClassTransformer {
+    override fun transform(project: SubprojectType, node: ClassNode) {
+        node.methods.removeIf { methodNode -> removeIfDevMixin(node.name, methodNode.visibleAnnotations) }
     }
 
     private fun removeIfDevMixin(nodeName: String, visibleAnnotations: List<AnnotationNode>?): Boolean {
