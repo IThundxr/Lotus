@@ -52,16 +52,20 @@ gradlePlugin {
     }
 }
 
-publishing {
-    publications {
-        create<MavenPublication>("plugin") {
-            groupId = project.group.toString()
-            artifactId = "gradle"
-            version = project.version.toString()
+publishing.publications.forEach { a ->
+    println(a.name)
+}
 
-            from(components["java"])
-        }
-    }
+publishing {
+//    publications {
+//        create<MavenPublication>("plugin") {
+//            groupId = project.group.toString()
+//            artifactId = "gradle"
+//            version = project.version.toString()
+//
+//            from(components["java"])
+//        }
+//    }
 
     repositories {
         val mavenToken = System.getenv("MAVEN_TOKEN")

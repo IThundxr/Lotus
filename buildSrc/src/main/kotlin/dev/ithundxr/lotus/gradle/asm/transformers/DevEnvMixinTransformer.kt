@@ -25,7 +25,7 @@ import org.objectweb.asm.tree.MethodNode
 import java.util.*
 
 class DevEnvMixinTransformer {
-    fun transform(project:SubprojectType, node: ClassNode) {
+    fun transform(project: SubprojectType, node: ClassNode) {
         node.methods.removeIf { methodNode: MethodNode -> removeIfDevMixin(node.name, methodNode.visibleAnnotations) }
     }
 
