@@ -31,7 +31,7 @@ import java.util.zip.Deflater
 
 class LotusGradlePlugin : Plugin<Project> {
     override fun apply(project: Project) {
-        LotusGradleASM.instance.addTransformer(DevEnvMixinTransformer::class)
+        DevEnvMixinTransformer.init()
 
         project.tasks.named("remapJar").configure {
             doLast {
