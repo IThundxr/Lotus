@@ -48,7 +48,6 @@ gradlePlugin {
         create("lotusPlugin") {
             id = "dev.ithundxr.lotus.gradle"
             implementationClass = "dev.ithundxr.lotus.gradle.LotusGradlePlugin"
-            isAutomatedPublishing = false
         }
     }
 }
