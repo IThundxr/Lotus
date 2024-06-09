@@ -59,10 +59,9 @@ publishing.publications.forEach { a ->
 publishing {
     repositories {
         val mavenToken = System.getenv("MAVEN_TOKEN")
-        val maven = if (isRelease) "releases" else "snapshots"
-        if (mavenToken != null && mavenToken.isNotEmpty()) {
+        if (mavenToken != null && mavenToken.isNotEmpty() && isRelease) {
             maven {
-                url = uri("https://maven.ithundxr.dev/${maven}")
+                url = uri("https://maven.ithundxr.dev/releases")
                 credentials {
                     username = "lotus-github"
                     password = mavenToken
