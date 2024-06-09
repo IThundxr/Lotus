@@ -16,7 +16,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package dev.ithundxr.lotus.gradle.asm.internal
+package dev.ithundxr.lotus.gradle.api.asm.util
 
 import org.objectweb.asm.tree.ClassNode
 

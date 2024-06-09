@@ -18,8 +18,8 @@
 
 package dev.ithundxr.lotus.gradle
 
-import dev.ithundxr.lotus.gradle.asm.LotusGradleASM
-import dev.ithundxr.lotus.gradle.asm.transformers.DevEnvMixinTransformer
+import dev.ithundxr.lotus.gradle.api.asm.LotusGradleASM
+import dev.ithundxr.lotus.gradle.api.transformers.DevEnvMixinTransformer
 import groovy.json.JsonOutput
 import groovy.json.JsonSlurper
 import org.gradle.api.Plugin
@@ -29,9 +29,10 @@ import java.util.jar.JarFile
 import java.util.jar.JarOutputStream
 import java.util.zip.Deflater
 
+
 class LotusGradlePlugin : Plugin<Project> {
     override fun apply(project: Project) {
-        LotusGradleASM.instance.addTransformer(DevEnvMixinTransformer::class)
+        LotusGradleASM.addTransformer(DevEnvMixinTransformer::class)
 
         project.tasks.named("remapJar").configure {
             doLast {
@@ -62,7 +63,7 @@ class LotusGradlePlugin : Plugin<Project> {
                         if (name.endsWith(".json") || name.endsWith(".mcmeta")) {
                             data = (JsonOutput.toJson(JsonSlurper().parse(data)).toByteArray())
                         } else if (name.endsWith(".class")) {
-                            data = LotusGradleASM.instance.transformClass(project, data)
+                            data = LotusGradleASM.transformClass(project, data)
                         }
 
                         out.putNextEntry(JarEntry(name))

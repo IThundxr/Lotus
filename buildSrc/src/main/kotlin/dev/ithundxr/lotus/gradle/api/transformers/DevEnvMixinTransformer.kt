@@ -16,10 +16,10 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package dev.ithundxr.lotus.gradle.asm.transformers;
+package dev.ithundxr.lotus.gradle.api.transformers;
 
-import dev.ithundxr.lotus.gradle.asm.internal.IClassTransformer
-import dev.ithundxr.lotus.gradle.asm.internal.SubprojectType
+import dev.ithundxr.lotus.gradle.api.asm.util.IClassTransformer
+import dev.ithundxr.lotus.gradle.api.asm.util.SubprojectType
 import org.objectweb.asm.tree.AnnotationNode
 import org.objectweb.asm.tree.ClassNode
 import java.util.*
