@@ -57,16 +57,6 @@ publishing.publications.forEach { a ->
 }
 
 publishing {
-//    publications {
-//        create<MavenPublication>("plugin") {
-//            groupId = project.group.toString()
-//            artifactId = "gradle"
-//            version = project.version.toString()
-//
-//            from(components["java"])
-//        }
-//    }
-
     repositories {
         val mavenToken = System.getenv("MAVEN_TOKEN")
         val maven = if (isRelease) "releases" else "snapshots"
