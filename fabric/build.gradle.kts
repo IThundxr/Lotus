@@ -1,3 +1,21 @@
+/*
+ * Lotus
+ * Copyright (c) 2024 IThundxr
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
+
 plugins {
     id("com.github.johnrengelman.shadow") version "7.1.2"
 }
@@ -27,11 +45,6 @@ dependencies {
 
     common(project(":common", "namedElements")) { isTransitive = false }
     shadowCommon(project(":common", "transformProductionFabric")) { isTransitive = false }
-
-    val mixinExtras = "io.github.llamalad7:mixinextras-fabric:${"mixin_extras_version"()}"
-
-    annotationProcessor(mixinExtras)
-    implementation(mixinExtras)
 }
 
 tasks.processResources {

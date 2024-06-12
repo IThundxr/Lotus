@@ -32,8 +32,10 @@ import java.util.zip.Deflater
 
 class LotusGradlePlugin : Plugin<Project> {
     override fun apply(project: Project) {
+        // Add default transformers
         LotusGradleASM.addTransformer(DevEnvMixinTransformer::class)
 
+        // Set up our processing in the doLast
         project.tasks.named("remapJar").configure {
             doLast {
                 val jar = outputs.files.singleFile

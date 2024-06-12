@@ -45,11 +45,8 @@ dependencies {
     common(project(":common", "namedElements")) { isTransitive = false }
     shadowCommon(project(":common", "transformProductionForge")) { isTransitive = false }
 
-    val mixinExtras = "io.github.llamalad7:mixinextras-forge:${"mixin_extras_version"()}"
-
     compileOnly("io.github.llamalad7:mixinextras-common:${"mixin_extras_version"()}")
-    implementation(mixinExtras)
-    include(mixinExtras)
+    include(implementation("io.github.llamalad7:mixinextras-forge:${"mixin_extras_version"()}")!!)
 }
 
 tasks.processResources {
