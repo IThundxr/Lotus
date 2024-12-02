@@ -44,7 +44,7 @@ class LotusGradleASM private constructor() {
             for (kClass in storedClasses) {
                 val instance = kClass.createInstance() as IClassTransformer
                 val method = kClass.declaredMemberFunctions.find { it.name == "transform" }
-                    ?: throw IllegalArgumentException("Method transform(SubprojectType, ClassNode) not found in class $kClass")
+                    ?: throw IllegalArgumentException("Method transform(SubprojectType, ClassNode) not found in class ${kClass.simpleName}")
 
                 method.call(instance, projectType, node)
             }
@@ -55,6 +55,10 @@ class LotusGradleASM private constructor() {
             return byteArray
         }
 
+        /**
+         * Adds a transformer that extends {@see IClassTransformer}, Will never add the same transformer twice
+         * as this is backed by a set of KClasses.
+         */
         fun addTransformer(kClass: KClass<*>) {
             if (!kClass.isSubclassOf(IClassTransformer::class))
                 throw IllegalArgumentException("Class ${kClass.simpleName} does not implement IClassTransformer")

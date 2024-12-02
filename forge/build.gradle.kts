@@ -16,34 +16,8 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-plugins {
-    id("com.github.johnrengelman.shadow") version "7.1.2"
-}
-
-architectury {
-    platformSetupLoomIde()
-    forge()
-}
-
-loom {
-    silentMojangMappingsLicense()
-}
-
-val common: Configuration by configurations.creating
-val shadowCommon: Configuration by configurations.creating
-val developmentForge: Configuration by configurations.getting
-
-configurations {
-    compileOnly.configure { extendsFrom(common) }
-    runtimeOnly.configure { extendsFrom(common) }
-    developmentForge.extendsFrom(common)
-}
-
 dependencies {
     forge("net.minecraftforge:forge:${"minecraft_version"()}-${"forge_version"()}")
-
-    common(project(":common", "namedElements")) { isTransitive = false }
-    shadowCommon(project(":common", "transformProductionForge")) { isTransitive = false }
 
     compileOnly("io.github.llamalad7:mixinextras-common:${"mixin_extras_version"()}")
     include(implementation("io.github.llamalad7:mixinextras-forge:${"mixin_extras_version"()}")!!)
@@ -61,19 +35,6 @@ tasks.processResources {
     filesMatching("META-INF/mods.toml") {
         expand(properties)
     }
-}
-
-tasks.shadowJar {
-    exclude("fabric.mod.json")
-
-    configurations = listOf(shadowCommon)
-    archiveClassifier = "dev-shadow"
-}
-
-tasks.remapJar {
-    inputFile.set(tasks.shadowJar.get().archiveFile)
-    dependsOn(tasks.shadowJar)
-    archiveClassifier = null
 }
 
 tasks.jar {

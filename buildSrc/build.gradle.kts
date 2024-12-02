@@ -57,9 +57,9 @@ publishing {
         val mavenToken = System.getenv("MAVEN_TOKEN")
         if (mavenToken != null && mavenToken.isNotEmpty() && isRelease) {
             maven {
-                url = uri("https://maven.ithundxr.dev/releases")
+                url = uri("https://mvn.devos.one/releases")
                 credentials {
-                    username = "lotus-github"
+                    username = "ithundxr-github"
                     password = mavenToken
                 }
             }
